@@ -15,7 +15,7 @@ int main (void) {
 	while (!WindowShouldClose()) {
 		BeginDrawing();
 
-		ClearBackground(pong::constants::BACKGROUND_COLOR);
+		ClearBackground(BLACK);
 
 		game.update(GetFrameTime());
 		game.draw();

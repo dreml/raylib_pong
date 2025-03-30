@@ -16,6 +16,7 @@ class Game {
   int rightPlayerScore = 0;
 
   void checkCollisions();
+  void drawField();
   void drawScore();
 
 public:
