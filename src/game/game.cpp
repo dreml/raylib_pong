@@ -1,6 +1,7 @@
 #include "game/game.hpp"
 #include "common/constants.hpp"
 #include "common/types.hpp"
+#include "game/audio_manager.hpp"
 #include "game/ball.hpp"
 #include "game/paddle.hpp"
 #include <memory>
@@ -8,12 +9,14 @@
 
 using namespace pong;
 	
-Game::Game(const ScreenDimensions &screenDimensions) 
-		: screenDimensions(screenDimensions)
+Game::Game(const ScreenDimensions &screenDimensions, AudioManager &am) 
+		: screenDimensions(screenDimensions),
+			audioManager(am)
 {
 	ball = std::make_unique<Ball>(screenDimensions, constants::BALL_SPEED, constants::BALL_RADIUS);
 	ball->setOnScoreCallback([this](bool isLeftPlayer) {
 		isLeftPlayer ? leftPlayerScore++ : rightPlayerScore++;
+		audioManager.playScoreSfx();
 		ball->resetBall();
 	});
 
@@ -34,7 +37,9 @@ Game::Game(const ScreenDimensions &screenDimensions)
 	);
 } 
 
-void Game::update(float const deltaTime) {
+void Game::update(float deltaTime) {
+	audioManager.update(deltaTime);
+
 	paddleLeft->update(deltaTime);
 	paddleRight->update(deltaTime);
 	ball->update(deltaTime);
@@ -54,10 +59,14 @@ void Game::draw() const {
 
 void Game::checkCollisions() {
 	if (ball->checkPaddleCollision(*paddleLeft)) {
+		audioManager.playPongSfx();
+
 		ball->handlePaddleCollision();
 	}
 
 	if (ball->checkPaddleCollision(*paddleRight)) {
+		audioManager.playPongSfx();
+
 		ball->handlePaddleCollision();
 	}
 }
