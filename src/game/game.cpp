@@ -22,9 +22,11 @@ Game::Game(ScreenDimensions screenDimensions)
 			constants::PADDLE_HEIGHT,
 			constants::PADDLE_SPEED,
 			false
-		)
+		),
+		screenDimensions(screenDimensions)
 {
 	ball.setOnScoreCallback([this](bool isLeftPlayer) {
+		isLeftPlayer ? leftPlayerScore++ : rightPlayerScore++;
 		ball.reset();
 	});
 } 
@@ -41,6 +43,7 @@ void Game::draw() {
 	paddleLeft.draw();
 	paddleRight.draw();
 	ball.draw();
+	drawScore();
 }
 
 void Game::checkCollisions() {
@@ -51,4 +54,22 @@ void Game::checkCollisions() {
 	if (ball.checkPaddleCollision(paddleRight)) {
 		ball.handlePaddleCollision();
 	}
+}
+
+void Game::drawScore() {
+	DrawText(
+		TextFormat("%d", leftPlayerScore), 
+		screenDimensions.width / 4 - 10, 
+		10, 
+		50, 
+		WHITE
+	);
+	
+	DrawText(
+		TextFormat("%d", rightPlayerScore), 
+		screenDimensions.width * 3 / 4- 10, 
+		10, 
+		50, 
+		WHITE
+	);
 }

@@ -11,8 +11,12 @@ class Game {
   Paddle paddleLeft;
   Paddle paddleRight;
   Ball ball;
+  ScreenDimensions screenDimensions;
+  int leftPlayerScore = 0;
+  int rightPlayerScore = 0;
 
   void checkCollisions();
+  void drawScore();
 
 public:
   Game(ScreenDimensions screenDimensions);
