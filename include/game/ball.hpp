@@ -15,12 +15,18 @@ class Ball {
 
   Vector2 getInitialDirection();
 
+  ScoreCallback onScoreCallback;
+
 public:
   Ball(ScreenDimensions dimensions, float speed, float radius);
 
   void update(float deltaTime);
   void draw();
   void reset();
+
+  void setOnScoreCallback(ScoreCallback callback) {
+    onScoreCallback = callback;
+  }
 };
 
 } // namespace pong

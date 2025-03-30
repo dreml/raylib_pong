@@ -19,7 +19,11 @@ Game::Game(ScreenDimensions screenDimensions)
 			constants::PADDLE_WIDTH,
 			constants::PADDLE_HEIGHT
 		)
-{} 
+{
+	ball.setOnScoreCallback([this](bool isLeftPlayer) {
+		ball.reset();
+	});
+} 
 
 void Game::update(float deltaTime) {
 	paddleLeft.update(deltaTime);

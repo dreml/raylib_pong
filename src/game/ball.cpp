@@ -18,11 +18,14 @@ void Ball::update(float deltaTime) {
 	position.x += direction.x * speed * deltaTime;
 	position.y += direction.y * speed * deltaTime;
 
-	if (position.x <= radius || position.x >= screenDimensions.width - radius) {
-		direction.x *= -1;
-	}
 	if (position.y <= radius || position.y >= screenDimensions.height - radius) {
 		direction.y *= -1;
+	}
+
+	if (position.x <= radius || position.x >= screenDimensions.width - radius) {
+		direction.x *= -1;
+
+		onScoreCallback(position.x >= screenDimensions.width - radius);
 	}
 }
 
@@ -36,5 +39,10 @@ void Ball::reset() {
 }
 
 Vector2 Ball::getInitialDirection() {
-	return {1.f, 1.f};
+	float directionVariants[2] = {-1.f, 1.f};
+
+	return {
+		directionVariants[GetRandomValue(0, 1)],
+		directionVariants[GetRandomValue(0, 1)],
+	};
 }
