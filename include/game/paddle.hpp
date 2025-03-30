@@ -13,16 +13,16 @@ class Paddle {
   bool isLeft;
   float speed;
 
-  bool isKeyUpPressed();
-  bool isKeyDownPressed();
+  bool isKeyUpPressed() const;
+  bool isKeyDownPressed() const;
 
 public:
-  Paddle(ScreenDimensions screenDimensions, float width, float height,
+  Paddle(const ScreenDimensions &screenDimensions, float width, float height,
          float speed, bool isLeft);
 
   void update(float deltaTime);
-  void draw();
-  Rectangle getAABB();
+  void draw() const;
+  Rectangle getAABB() const;
 };
 
 } // namespace pong

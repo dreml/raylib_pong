@@ -6,7 +6,7 @@
 
 using namespace pong;
 	
-Paddle::Paddle(ScreenDimensions screenDimensions, float width, float height, float speed, bool isLeft)
+Paddle::Paddle(const ScreenDimensions &screenDimensions, float width, float height, float speed, bool isLeft)
 	: screenDimensions(screenDimensions),
 		width(width),
 		height(height),
@@ -31,11 +31,11 @@ void Paddle::update(float deltaTime) {
 	position.y = std::clamp(position.y, 0.f, screenDimensions.height - height);
 }
 
-void Paddle::draw() {
+void Paddle::draw() const {
 	DrawRectangleRounded(getAABB(), .8f, 0, constants::PADDLE_COLOR);
 }
 
-bool Paddle::isKeyUpPressed() {
+bool Paddle::isKeyUpPressed() const {
 	if (isLeft) {
 		return IsKeyDown(KEY_P);
 	} else {
@@ -43,7 +43,7 @@ bool Paddle::isKeyUpPressed() {
 	}
 };
 
-bool Paddle::isKeyDownPressed() {
+bool Paddle::isKeyDownPressed() const {
 	if (isLeft) {
 		return IsKeyDown(KEY_D);
 	} else {
@@ -51,6 +51,6 @@ bool Paddle::isKeyDownPressed() {
 	}
 };
 
-Rectangle Paddle::getAABB() {
+Rectangle Paddle::getAABB() const {
 	return {position.x, position.y, width, height};
 }

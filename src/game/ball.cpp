@@ -5,13 +5,13 @@
 
 using namespace pong;
 	
-Ball::Ball(ScreenDimensions dimensions, float speed, float radius)
+Ball::Ball(const ScreenDimensions &dimensions, float speed, float radius)
 	: screenDimensions(dimensions),
 		defaultPosition(Vector2{dimensions.width/2, dimensions.height/2}),
 		speed(speed),
 		radius(radius)
 {
-	reset();
+	resetBall();
 }
 
 void Ball::update(float deltaTime) {
@@ -29,16 +29,16 @@ void Ball::update(float deltaTime) {
 	}
 }
 
-void Ball::draw() {
+void Ball::draw() const {
 	DrawCircle(position.x, position.y, constants::BALL_RADIUS, constants::BALL_COLOR);
 }
 
-void Ball::reset() {
+void Ball::resetBall() {
 	position = defaultPosition;
 	direction = getInitialDirection();
 }
 
-Vector2 Ball::getInitialDirection() {
+Vector2 Ball::getInitialDirection() const {
 	float directionVariants[2] = {-1.f, 1.f};
 
 	return {
@@ -47,7 +47,7 @@ Vector2 Ball::getInitialDirection() {
 	};
 }
 
-bool Ball::checkPaddleCollision(Paddle paddle) {
+bool Ball::checkPaddleCollision(Paddle &paddle) const {
 	return CheckCollisionCircleRec(position, radius, paddle.getAABB());
 }
 

@@ -14,17 +14,17 @@ class Ball {
   float speed;
   float radius;
 
-  Vector2 getInitialDirection();
+  Vector2 getInitialDirection() const;
 
   ScoreCallback onScoreCallback;
 
 public:
-  Ball(ScreenDimensions dimensions, float speed, float radius);
+  Ball(const ScreenDimensions &dimensions, float speed, float radius);
 
   void update(float deltaTime);
-  void draw();
-  void reset();
-  bool checkPaddleCollision(Paddle paddle);
+  void draw() const;
+  void resetBall();
+  bool checkPaddleCollision(Paddle &paddle) const;
   void handlePaddleCollision();
 
   void setOnScoreCallback(ScoreCallback callback) {
