@@ -46,3 +46,11 @@ Vector2 Ball::getInitialDirection() {
 		directionVariants[GetRandomValue(0, 1)],
 	};
 }
+
+bool Ball::checkPaddleCollision(Paddle paddle) {
+	return CheckCollisionCircleRec(position, radius, paddle.getAABB());
+}
+
+void Ball::handlePaddleCollision() {
+	direction.x *= -1;
+}

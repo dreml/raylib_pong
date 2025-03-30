@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common/types.hpp"
 #include <raylib.h>
 
 namespace pong {
@@ -8,12 +9,20 @@ class Paddle {
   float width;
   float height;
   Vector2 position;
+  ScreenDimensions screenDimensions;
+  bool isLeft;
+  float speed;
+
+  bool isKeyUpPressed();
+  bool isKeyDownPressed();
 
 public:
-  Paddle(Vector2 p, float width, float height);
+  Paddle(ScreenDimensions screenDimensions, float width, float height,
+         float speed, bool isLeft);
 
   void update(float deltaTime);
   void draw();
+  Rectangle getAABB();
 };
 
 } // namespace pong

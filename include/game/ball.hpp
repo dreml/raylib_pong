@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common/types.hpp"
+#include "game/paddle.hpp"
 #include <raylib.h>
 
 namespace pong {
@@ -23,6 +24,8 @@ public:
   void update(float deltaTime);
   void draw();
   void reset();
+  bool checkPaddleCollision(Paddle paddle);
+  void handlePaddleCollision();
 
   void setOnScoreCallback(ScoreCallback callback) {
     onScoreCallback = callback;

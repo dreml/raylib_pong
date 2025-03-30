@@ -10,7 +10,7 @@ const int WINDOW_HEIGHT = 800;
 
 const float PADDLE_WIDTH = 20.f;
 const float PADDLE_HEIGHT = 100.f;
-const float PADDLE_SPEED = 100.f;
+const float PADDLE_SPEED = 200.f;
 
 const float BALL_RADIUS = 20.f;
 const float BALL_SPEED = 250.f;

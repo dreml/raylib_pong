@@ -10,14 +10,18 @@ using namespace pong;
 Game::Game(ScreenDimensions screenDimensions) 
 	: ball(screenDimensions, constants::BALL_SPEED, constants::BALL_RADIUS),
 		paddleLeft(
-			Vector2{10, screenDimensions.height/2 - constants::PADDLE_HEIGHT/2},
+			screenDimensions,
 			constants::PADDLE_WIDTH, 
-			constants::PADDLE_HEIGHT
+			constants::PADDLE_HEIGHT,
+			constants::PADDLE_SPEED,
+			true
 		),
 		paddleRight(
-			Vector2{screenDimensions.width - constants::PADDLE_WIDTH - 10, screenDimensions.height/2 - constants::PADDLE_HEIGHT/2},
+			screenDimensions,
 			constants::PADDLE_WIDTH,
-			constants::PADDLE_HEIGHT
+			constants::PADDLE_HEIGHT,
+			constants::PADDLE_SPEED,
+			false
 		)
 {
 	ball.setOnScoreCallback([this](bool isLeftPlayer) {
@@ -29,10 +33,22 @@ void Game::update(float deltaTime) {
 	paddleLeft.update(deltaTime);
 	paddleRight.update(deltaTime);
 	ball.update(deltaTime);
+
+	checkCollisions();
 }
 
 void Game::draw() {
 	paddleLeft.draw();
 	paddleRight.draw();
 	ball.draw();
+}
+
+void Game::checkCollisions() {
+	if (ball.checkPaddleCollision(paddleLeft)) {
+		ball.handlePaddleCollision();
+	}
+
+	if (ball.checkPaddleCollision(paddleRight)) {
+		ball.handlePaddleCollision();
+	}
 }

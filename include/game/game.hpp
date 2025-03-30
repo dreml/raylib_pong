@@ -12,6 +12,8 @@ class Game {
   Paddle paddleRight;
   Ball ball;
 
+  void checkCollisions();
+
 public:
   Game(ScreenDimensions screenDimensions);
 
